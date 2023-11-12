@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>PTO</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style/main.css">
+        <link rel="stylesheet" href="style/calandar.css">
+        <link rel="stylesheet" href="style/settings.css">
+    </head>
+    <body>
+        
+        <!-- Title -->
+        <h1>PTO CALENDAR</h1>
+
+        <main>
+            <div class="group1">
+                <!-- Calendar -->
+                <div class="calendar">
+                    <div class="month" id="month">
+                        <div class="arrow" onclick="lastMonth()">🡄</div>
+                        <div class="month-name fade-in">Month</div>
+                        <div class="arrow" onclick="nextMonth()">🡆</div>
+                    </div>
+                    <div class="week">SUN</div>
+                    <div class="week">MON</div>
+                    <div class="week">TUE</div>
+                    <div class="week">WED</div>
+                    <div class="week">THU</div>
+                    <div class="week">FRI</div>
+                    <div class="week">SAT</div>
+                    <div class="day first"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day first"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day first"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day first"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day first"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day first"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                    <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
+                </div>
+
+                <!-- Settings -->
+                <div class="settings">
+                    <h2 class="settings-header">Settings</h2>
+                    <div class="setting">
+                        <div class="setting-name">ADD</div>
+                        <input id="setting-add">
+                    </div>
+                    <div class="setting">
+                        <div class="setting-name">SUB</div>
+                        <input id="setting-sub">
+                    </div>
+                    <div class="setting">
+                        <div class="setting-name">MAX PTO</div>
+                        <input id="setting-max">
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Source -->
+        <script src="src/other.js" defer></script>
+        <script src="src/actions.js" defer></script>
+        <script src="src/animations.js" defer></script>
+        <script src="src/main.js" defer></script>
+    </body>
+</html>

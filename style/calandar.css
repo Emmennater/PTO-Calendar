@@ -1,0 +1,115 @@
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    /* grid-gap: 1px; */
+    width: auto;
+    height: auto;
+    /* background: var(--c2); */
+    background: transparent;
+    backdrop-filter: brightness(1.2) blur(20px);
+}
+
+.month {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    grid-column: span 7;
+    height: 40px;
+    /* background: var(--c3); */
+    background: #ffffff20;
+    color: var(--c1);
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.month-name.current-month {
+    color: #33b9eeee;
+    text-shadow: 0px 0px 6px #44aad3aa;
+}
+
+.week {
+    display: flex;
+    width: 100px;
+    height: 30px;
+    /* background: var(--c3); */
+    background: #ffffff20;
+    color: var(--c1);
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.day {
+    --pto-ratio: 0.0;
+    background: linear-gradient(
+        to top,
+        #88ccff35 calc(var(--pto-ratio) * 100%), /* #0c1a30 */
+        #ffffff12 calc(var(--pto-ratio) * 100%)
+    );
+    width: auto;
+    height: 90px;
+    color: var(--c1);
+    border-top: 1px solid var(--c2); /* Border color and width */
+    border-left: 1px solid var(--c2); /* Border color and width */
+    box-sizing: border-box; /* Include border in the element's total width and height */
+
+    cursor: pointer;
+}
+
+.day.add {
+    box-shadow: inset 0px 0px 20px #88ccff80;
+}
+
+.day.sub {
+    box-shadow: inset 0px 0px 20px #ff888880;
+}
+
+.day.first {
+    border-left: none;
+}
+
+.day.blank {
+    background: #ffffff05;
+    cursor: auto;
+}
+
+.day-num {
+    display: block;
+    position: absolute;
+    padding: 1px 4px;
+    font-size: 16px;
+}
+
+.day-num.current-day {
+    color: #66bbdd;
+    font-weight: bold;
+    text-shadow: 0px 0px 5px #66bbddee;
+}
+
+.pto-num {
+    display: flex;
+    position: absolute;
+    width: 100px;
+    height: 90px;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 30px;
+    color: var(--c4);
+}
+
+.arrow {
+    padding: 0px 12px;
+    color: var(--c1);
+    cursor: pointer;
+}
+
+.arrow:hover {
+    color: var(--c5);
+}
+
+.arrow:active {
+    transform: scale(0.8);
+}
+

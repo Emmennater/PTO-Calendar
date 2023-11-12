@@ -1,0 +1,119 @@
+
+:root {
+    /* Gray Mode */
+    /* --bg: linear-gradient(rgb(63, 132, 141), rgb(7, 44, 51)); */
+    --bg: url("https://png.pngtree.com/background/20220731/original/pngtree-stock-trend-candlestick-chart-background-red-lines-geometry-picture-image_1908880.jpg");
+    --c1: #bbb;
+    --c2: #ffffff80;
+    --c3: #333;
+    --c4: #ffffff25;
+    --c5: #999;
+    --c6: #222;
+    --c7: #444;
+    --c8: #ddd;
+
+    /* Dark Mode */
+    /* --bg: black;
+    --c1: white;
+    --c2: #555;
+    --c3: black;
+    --c4: #fff2;
+    --c5: #bbb;
+    --c6: #222;
+    --c7: #444;
+    --c8: #ddd; */
+
+    /* Light Mode */
+    /* --bg: white;
+    --c1: black;
+    --c2: #555;
+    --c3: white;
+    --c4: #0003;
+    --c5: #777;
+    --c6: #ddd;
+    --c7: #bbb;
+    --c8: black; */
+    
+}
+
+html {
+    position: relative;
+}
+
+html::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: var(--bg);
+    background-size: cover;
+    height: 100%;
+    filter: brightness(0.8);
+    z-index: -1;
+}
+
+h1 {
+    /* background: linear-gradient(to right, transparent 10%, white, transparent 90%); */
+    padding-left: 6px;
+    font-family: arial;
+    text-align: center;
+    color: var(--c1);
+}
+
+h2 {
+    text-align: center;
+    margin: 0;
+    padding: 4px 0px;
+    color: var(--c1);
+    font-weight: normal;
+    font-size: 20px;
+}
+
+div {
+    font-family: "Trebuchet MS";
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.group1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    box-shadow: 0px 0px 16px #0008;
+    border: solid 1px var(--c2);
+}
+
+.prevent-select, .arrow, .day, .week, .month, h1 {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+/* Keyframes */
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-out {
+    animation: fadeOut 0.0s ease-in-out forwards;
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-in-out forwards;
+}

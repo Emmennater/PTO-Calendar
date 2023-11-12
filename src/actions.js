@@ -84,7 +84,7 @@ function updateDayElem(i) {
     dayElem.children[0].innerText = i - currentMonth.firstDay + 1;
 
     // Set time off
-    dayElem.children[1].innerText = monthDay.timeOff;
+    dayElem.children[1].innerText = rnd(monthDay.timeOff, Settings.round);
     let timeOffRatio = monthDay.timeOff / Settings.max;
     timeOffRatio = Math.max(Math.min(timeOffRatio, 1), 0);
     dayElem.setAttribute("style", `--pto-ratio: ${timeOffRatio};`);

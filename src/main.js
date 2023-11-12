@@ -80,6 +80,7 @@ class Settings {
     static add = 0;
     static sub = 0;
     static max = 0;
+    static round = 1;
     
     static init() {
         Settings.setSetting("add", 12);

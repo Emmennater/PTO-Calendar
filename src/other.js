@@ -23,3 +23,8 @@ function getItem(key) {
 
     return value;
 }
+
+function rnd(n, d) {
+    const precision = 10 ** d;
+    return Math.round(n * precision) / precision;
+}

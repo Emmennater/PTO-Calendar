@@ -5,7 +5,7 @@
 <ul>
  <li>Click a day once to subtract time</li>
  <li>Click a day twice to add time</li>
- <li>Click a dat three times to return to default.</li>
+ <li>Click a day three times to return to default.</li>
 </ul>
 
 <h2>Settings</h2>

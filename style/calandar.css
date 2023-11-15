@@ -25,8 +25,11 @@
 }
 
 .month-name.current-month {
-    color: #92afee; /* #33b9eeee */
+    /* color: #92afee; */ /* #33b9eeee */
     /* text-shadow: 0px 0px 6px #92afeeaa; */ /* #44aad3aa */
+    background-color: #ffffff15;
+    background-clip: padding-box;
+    padding: 0px 6px;
 }
 
 .week {
@@ -88,10 +91,10 @@
 }
 
 .day-num.current-day {
-    color: #92afee; /* #66bbdd */
-    font-weight: bold;
-    text-shadow: 0px 0px 5px #92afee; /* #66bbddee */
-    text-overflow: clip;
+    /* color: #a4bffa; */ /* #66bbdd #92afee */
+    /* font-weight: bold; */
+    /* text-shadow: 0px 0px 5px #92afee; */ /* #66bbddee */
+    background-color: #ffffff15;
 }
 
 .pto-num {

@@ -71,7 +71,7 @@
 }
 
 .day.sub {
-    box-shadow: inset 0px 0px 20px rgba(238, 90, 139, 0.502) /* #ff888880 */
+    box-shadow: inset 0px 0px 20px rgba(226, 214, 107, 0.5) /* #ff888880 rgba(238, 213, 73, 0.55) */
 }
 
 .day.first {

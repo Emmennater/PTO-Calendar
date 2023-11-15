@@ -3,7 +3,7 @@
     width: 220px;
     background-color: #ffffff10;
     border-left: solid 1px var(--c2);
-    backdrop-filter: brightness(1.2) blur(5px);
+    backdrop-filter: brightness(1.2) blur(20px); /* blur(5px) */
 }
 
 .sidebar h2 {

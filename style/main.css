@@ -2,7 +2,9 @@
 :root {
     /* Gray Mode */
     /* --bg: linear-gradient(rgb(63, 132, 141), rgb(7, 44, 51)); */
-    --bg: url("https://png.pngtree.com/background/20220731/original/pngtree-stock-trend-candlestick-chart-background-red-lines-geometry-picture-image_1908880.jpg");
+    /* --bg: url("https://png.pngtree.com/background/20220731/original/pngtree-stock-trend-candlestick-chart-background-red-lines-geometry-picture-image_1908880.jpg"); */
+    /* --bg: url("https://i.pinimg.com/originals/9f/9e/9a/9f9e9ac4bd8ef9deb5c8401b28ecb6be.png"); */
+    --bg: url("https://wallpapers.com/images/hd/blueprint-background-2560-x-1600-r7gfh3k9lusjwvte.jpg");
     --c1: #bbb;
     --c2: #ffffff80;
     --c3: #333;

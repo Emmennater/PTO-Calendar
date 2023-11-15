@@ -8,7 +8,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="style/main.css">
         <link rel="stylesheet" href="style/calandar.css">
-        <link rel="stylesheet" href="style/settings.css">
+        <link rel="stylesheet" href="style/sidebar.css">
+        <link rel="stylesheet" href="style/dropdown.css">
     </head>
     <body>
         
@@ -75,20 +76,108 @@
                     <div class="day"><div class="day-num"></div><div class="pto-num"></div></div>
                 </div>
 
-                <!-- Settings -->
-                <div class="settings">
-                    <h2 class="settings-header">Settings</h2>
-                    <div class="setting">
-                        <div class="setting-name">ADD</div>
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <!-- Settings -->
+                    <h2 class="header">Settings</h2>
+                    <div class="line">
+                        <div class="label">ACCRUE</div>
                         <input id="setting-add">
                     </div>
-                    <div class="setting">
-                        <div class="setting-name">SUB</div>
+                    <div class="line">
+                        <div class="label">TIME OFF</div>
                         <input id="setting-sub">
                     </div>
-                    <div class="setting">
-                        <div class="setting-name">MAX PTO</div>
+                    <div class="line">
+                        <div class="label">MAX PTO</div>
                         <input id="setting-max">
+                    </div>
+                    <div class="line">
+                        <div class="label">MAX CARRY</div>
+                        <input id="setting-carry">
+                    </div>
+
+                    <!-- Payroll -->
+                    <div class="line">
+                        <div class="label">PAYROLL</div>
+                        <div class="dropdown">
+                            <button class="dropbtn" id="payroll">Weekly</button>
+                            <div class="dropdown-content" id="payroll-options">
+                                <a onclick="Settings.setPayroll('Weekly')">Weekly</a>
+                                <a onclick="Settings.setPayroll('Bi-Weekly')">Bi-Weekly</a>
+                                <a onclick="Settings.setPayroll('Bi-Monthly')">Bi-Monthly</a>
+                                <a onclick="Settings.setPayroll('Monthly')">Monthly</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- On -->
+                    <div class="line">
+                        <div class="label">ON</div>
+                        <div class="dropdown">
+                            <button class="dropbtn" id="day">Sunday</button>
+                            <div class="dropdown-content">
+                                <div id="week-selection" style="display: none;">
+                                    <a onclick="Settings.setPayrollWeek('Sunday', true)">Sunday</a>
+                                    <a onclick="Settings.setPayrollWeek('Monday', true)">Monday</a>
+                                    <a onclick="Settings.setPayrollWeek('Tuesday', true)">Tuesday</a>
+                                    <a onclick="Settings.setPayrollWeek('Wednesday', true)">Wednesday</a>
+                                    <a onclick="Settings.setPayrollWeek('Thursday', true)">Thursday</a>
+                                    <a onclick="Settings.setPayrollWeek('Friday', true)">Friday</a>
+                                    <a onclick="Settings.setPayrollWeek('Saturday', true)">Saturday</a>
+                                </div>
+                                <div id="day-selection" style="display: none;">
+                                    <a onclick="Settings.setPayrollDay(1, true)">1</a>
+                                    <a onclick="Settings.setPayrollDay(2, true)">2</a>
+                                    <a onclick="Settings.setPayrollDay(3, true)">3</a>
+                                    <a onclick="Settings.setPayrollDay(4, true)">4</a>
+                                    <a onclick="Settings.setPayrollDay(5, true)">5</a>
+                                    <a onclick="Settings.setPayrollDay(6, true)">6</a>
+                                    <a onclick="Settings.setPayrollDay(7, true)">7</a>
+                                    <a onclick="Settings.setPayrollDay(8, true)">8</a>
+                                    <a onclick="Settings.setPayrollDay(9, true)">9</a>
+                                    <a onclick="Settings.setPayrollDay(10, true)">10</a>
+                                    <a onclick="Settings.setPayrollDay(11, true)">11</a>
+                                    <a onclick="Settings.setPayrollDay(12, true)">12</a>
+                                    <a onclick="Settings.setPayrollDay(13, true)">13</a>
+                                    <a onclick="Settings.setPayrollDay(14, true)">14</a>
+                                    <a onclick="Settings.setPayrollDay(15, true)">15</a>
+                                    <a onclick="Settings.setPayrollDay(16, true)">16</a>
+                                    <a onclick="Settings.setPayrollDay(17, true)">17</a>
+                                    <a onclick="Settings.setPayrollDay(18, true)">18</a>
+                                    <a onclick="Settings.setPayrollDay(19, true)">19</a>
+                                    <a onclick="Settings.setPayrollDay(20, true)">20</a>
+                                    <a onclick="Settings.setPayrollDay(21, true)">21</a>
+                                    <a onclick="Settings.setPayrollDay(22, true)">22</a>
+                                    <a onclick="Settings.setPayrollDay(23, true)">23</a>
+                                    <a onclick="Settings.setPayrollDay(24, true)">24</a>
+                                    <a onclick="Settings.setPayrollDay(25, true)">25</a>
+                                    <a onclick="Settings.setPayrollDay(26, true)">26</a>
+                                    <a onclick="Settings.setPayrollDay(27, true)">27</a>
+                                    <a onclick="Settings.setPayrollDay(28, true)">28</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Start of PTO -->
+                    <div class="line">
+                        <div class="label">START DAY</div>
+                        <input class="setting-w2" id="pto-start-month">-
+                        <input class="setting-w2" id="pto-start-day">-
+                        <input id="pto-start-year">
+                    </div>
+
+                    <!-- Reset Button -->
+                    <div class="line">
+                        <button class="button" onclick="clearData()">Reset</button>
+                    </div>
+
+                    <!-- Info -->
+                    <h2>Info</h2>
+                    <div class="line">
+                        <div class="label">MAX PTO DAY</div>
+                        <div class="info" id="max-date">???</div>
                     </div>
                 </div>
             </div>
@@ -96,8 +185,10 @@
 
         <!-- Source -->
         <script src="src/other.js" defer></script>
+        <script src="src/dropdowns.js" defer></script>
         <script src="src/actions.js" defer></script>
         <script src="src/animations.js" defer></script>
+        <script src="src/settings.js" defer></script>
         <script src="src/main.js" defer></script>
     </body>
 </html>

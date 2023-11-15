@@ -1,4 +1,5 @@
 
+/* Calendar */
 .calendar {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -24,8 +25,8 @@
 }
 
 .month-name.current-month {
-    color: #33b9eeee;
-    text-shadow: 0px 0px 6px #44aad3aa;
+    color: #92afee; /* #33b9eeee */
+    /* text-shadow: 0px 0px 6px #92afeeaa; */ /* #44aad3aa */
 }
 
 .week {
@@ -40,6 +41,7 @@
     font-size: 20px;
 }
 
+/* Days */
 .day {
     --pto-ratio: 0.0;
     background: linear-gradient(
@@ -53,8 +55,12 @@
     border-top: 1px solid var(--c2); /* Border color and width */
     border-left: 1px solid var(--c2); /* Border color and width */
     box-sizing: border-box; /* Include border in the element's total width and height */
-
     cursor: pointer;
+    transition: box-shadow 0.1s;
+}
+
+.day.starting-day {
+    box-shadow: inset 0px 0px 20px #88ffb680;
 }
 
 .day.add {
@@ -62,7 +68,7 @@
 }
 
 .day.sub {
-    box-shadow: inset 0px 0px 20px #ff888880;
+    box-shadow: inset 0px 0px 20px rgba(238, 90, 151, 0.502) /* #ff888880 */
 }
 
 .day.first {
@@ -82,9 +88,10 @@
 }
 
 .day-num.current-day {
-    color: #66bbdd;
+    color: #92afee; /* #66bbdd */
     font-weight: bold;
-    text-shadow: 0px 0px 5px #66bbddee;
+    text-shadow: 0px 0px 5px #92afee; /* #66bbddee */
+    text-overflow: clip;
 }
 
 .pto-num {
@@ -99,6 +106,10 @@
     color: var(--c4);
 }
 
+/* Day View */
+
+
+/* Arrows */
 .arrow {
     padding: 0px 12px;
     color: var(--c1);

@@ -75,6 +75,10 @@ div {
     font-family: "Trebuchet MS";
 }
 
+a {
+    cursor: pointer;
+}
+
 main {
     display: flex;
     flex-direction: row;
@@ -89,7 +93,8 @@ main {
     border: solid 1px var(--c2);
 }
 
-.prevent-select, .arrow, .day, .week, .month, h1 {
+.prevent-select, .arrow, .day, .week, .month, h1,
+.sidebar .info, .sidebar h2, .sidebar .label {
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */

@@ -4,7 +4,8 @@
 // Right clicking on a day
 // - access specifics (timeoff, time)
 
-function lastMonth(animate = true) {
+// Switching months
+function lastMonth(user = true) {
     if (currentMonth.lastMonth === null) {
         let nextMonth = (currentMonth.month - 1 + 12) % 12;
         let nextYear = currentMonth.year;
@@ -13,11 +14,14 @@ function lastMonth(animate = true) {
         currentMonth.lastMonth.nextMonth = currentMonth;
     }
     setMonth(currentMonth.lastMonth);
-    if (animate) fadeMonth();
+    if (user) {
+        currentMonth.updateAccruals();
+        fadeMonth();
+    }
     updatePTO();
 }
 
-function nextMonth(animate = true) {
+function nextMonth(user = true) {
     if (currentMonth.nextMonth === null) {
         let nextMonth = (currentMonth.month + 1 + 12) % 12;
         let nextYear = currentMonth.year;
@@ -26,29 +30,39 @@ function nextMonth(animate = true) {
         currentMonth.nextMonth.lastMonth = currentMonth;
     }
     setMonth(currentMonth.nextMonth);
-    if (animate) fadeMonth();
+    if (user) {
+        currentMonth.updateAccruals();
+        fadeMonth();
+    }
     updatePTO();
 }
 
+function setMonth(month) {
+    // Set month elem
+    const monthElem = document.getElementById("month");
+    const monthName = monthElem.children[1];
+    monthName.innerText = month.name + " " + month.year + ` — ${month.month + 1} / ${month.year}`;
+    currentMonth = month;
+
+    // Todays month
+    if (currentMonth.isToday)
+        monthName.classList.add("current-month");
+    else
+        monthName.classList.remove("current-month");
+
+    // Set day elems
+    for (let i = 0; i < 42; ++i)
+        updateDayElem(i);
+}
+
+// Modifying days
 function dayClicked(e, day, i) {
     const button = ["left", "middle", "right"][e.which - 1];
     const dayObject = currentMonth.getDay(i);
     if (dayObject === undefined) return;
-    // console.log(day, i);
-
+    
     if (button == "left") {
-        if (dayObject.mode == "none") {
-            dayObject.mode = "sub";
-            dayObject.time = -Settings.sub;
-        } else
-        if (dayObject.mode == "sub") {
-            dayObject.mode = "add";
-            dayObject.time = Settings.add;
-        } else
-        if (dayObject.mode == "add") {
-            dayObject.mode = "none";
-            dayObject.time = 0;
-        }
+        dayObject.toggleSub();
         updatePTO();
     }
 
@@ -58,7 +72,7 @@ function dayClicked(e, day, i) {
 function hideDay(day) {
     day.children[0].setAttribute("style", "visibility: hidden;");
     day.children[1].setAttribute("style", "visibility: hidden;");
-    day.classList.remove("add", "sub");
+    day.classList.remove("add", "sub", "starting-day");
     day.classList.add("blank");
     day.setAttribute("style", "--pto-ratio: 0.0;");
 }
@@ -84,39 +98,28 @@ function updateDayElem(i) {
     dayElem.children[0].innerText = i - currentMonth.firstDay + 1;
 
     // Set time off
-    dayElem.children[1].innerText = rnd(monthDay.timeOff, Settings.round);
-    let timeOffRatio = monthDay.timeOff / Settings.max;
+    dayElem.children[1].innerText = rnd(monthDay.getTimeOff(), Settings.getSetting("round"));
+    let timeOffRatio = monthDay.getTimeOff() / Settings.getSetting("max");
     timeOffRatio = Math.max(Math.min(timeOffRatio, 1), 0);
     dayElem.setAttribute("style", `--pto-ratio: ${timeOffRatio};`);
 
     // Set mode
     dayElem.classList.remove("add", "sub");
-    if (monthDay.mode != "none")
-        dayElem.classList.add(monthDay.mode);
+    if (monthDay.getMode() != "none")
+        dayElem.classList.add(monthDay.getMode());
 
     // Current day
     if (monthDay.isToday)
         dayElem.children[0].classList.add("current-day");
     else
         dayElem.children[0].classList.remove("current-day");
-}
 
-function setMonth(month) {
-    // Set month elem
-    const monthElem = document.getElementById("month");
-    const monthName = monthElem.children[1];
-    monthName.innerText = month.name + " " + month.year;
-    currentMonth = month;
-
-    // Todays month
-    if (currentMonth.isToday)
-        monthName.classList.add("current-month");
+    // Starting day
+    if (monthDay.isStartingDay())
+        dayElem.classList.add("starting-day");
     else
-        monthName.classList.remove("current-month");
+        dayElem.classList.remove("starting-day");
 
-    // Set day elems
-    for (let i = 0; i < 42; ++i)
-        updateDayElem(i);
 }
 
 function updatePTOElems() {
@@ -127,18 +130,78 @@ function updatePTOElems() {
 function updatePTO() {
     // Previous months end time off
     const lastMonth = currentMonth.lastMonth;
-    const lastMonthPTO = lastMonth ? lastMonth.days[lastMonth.days.length - 1].timeOff : 0;
+    const lastMonthPTO = lastMonth ? lastMonth.days[lastMonth.days.length - 1].getTimeOff() : 0;
     currentMonth.updatePTO(lastMonthPTO);
     updatePTOElems();
 }
 
+function updateAllPTO() {
+    Settings.maxPTO = null;
+    const initMonth = currentMonth;
+    while (true) {
+        if (!currentMonth.lastMonth) break;
+        currentMonth = currentMonth.lastMonth;
+    }
+    currentMonth.updatePTO(0);
+    while (currentMonth.nextMonth) {
+        currentMonth = currentMonth.nextMonth;
+        updatePTO();
+    }
+    setMonth(initMonth);
+}
+
+function calculateAccruals(calcPTO = false) {
+    // Starting day of accruals
+    const startMonth = Settings.startDay.month;
+    const startYear = Settings.startDay.year;
+
+    // Calculate all past accruals
+    currentMonth.updateAccruals();
+    const initMonth = currentMonth;
+    const monthOffset = (currentMonth.month + currentMonth.year * 12) - (startMonth + startYear * 12);
+    for (let i = monthOffset; i > 0; --i) {
+        lastMonth(false);
+        currentMonth.updateAccruals();
+    }
+    for (let i = monthOffset; i < 0; ++i)
+        nextMonth(false);
+
+    // Reset months before
+    while (true) {
+        if (!currentMonth.lastMonth) break;
+        currentMonth = currentMonth.lastMonth;
+        currentMonth.clearAccruals();
+    }
+
+    // Recalculating PTO
+    if (calcPTO) {
+        currentMonth.updatePTO(0);
+        while (currentMonth != initMonth) {
+            currentMonth = currentMonth.nextMonth;
+            updatePTO();
+        }
+    }
+
+    // Return to initial month
+    setMonth(initMonth);
+}
+
+// Saving and Loading
 function saveData() {
     const settings = {
-        add: Settings.add,
-        sub: Settings.sub,
-        max: Settings.max
+        add: Settings.getSetting("add"),
+        sub: Settings.getSetting("sub"),
+        max: Settings.getSetting("max"),
+        carry: Settings.getSetting("carry")
     };
+    const payroll = {
+        payroll: Settings.getSetting("payroll"),
+        payrollWeek: Settings.getSetting("payrollWeek"),
+        payrollDay: Settings.getSetting("payrollDay"),
+    };
+    const startDay = { ...Settings.startDay };
     const months = [];
+    const version = "1";
 
     // Get first month
     let month = currentMonth;
@@ -157,11 +220,10 @@ function saveData() {
         // Add modified days
         for (let i = 0; i < month.days.length; ++i) {
             const day = month.days[i];
-            if (day.time != 0) {
+            if (day.isChanged()) {
                 modifiedDays.push({
                     i,
-                    time: day.time,
-                    mode: day.mode
+                    data: day.data
                 });
             }
         }
@@ -169,7 +231,7 @@ function saveData() {
         month = month.nextMonth;
     } while (month);
 
-    return JSON.stringify({ settings, months });
+    return JSON.stringify({ settings, months, payroll, startDay, version });
 }
 
 function loadData(string) {
@@ -177,31 +239,59 @@ function loadData(string) {
     if (!data) return;
 
     // Copy settings
+    if (data.settings)
     for (let k in data.settings) {
         Settings.setSetting(k, data.settings[k]);
     }
 
-    // Go to first month
-    const initMonth = currentMonth;
-    const monthOffset = (currentMonth.month + currentMonth.year * 12) - (data.months[0].month + data.months[0].year * 12)
-    for (let i = monthOffset; i > 0; --i)
-        lastMonth(false);
-    for (let i = monthOffset; i < 0; ++i)
-        nextMonth(false);
-    const firstMonth = currentMonth;
-
-    // Copy data for each month
-    for (let i = 0; i < data.months.length; ++i) {
-        const monthData = data.months[i];
-        for (let modifiedDay of monthData.modifiedDays) {
-            currentMonth.days[modifiedDay.i].mode = modifiedDay.mode;
-            currentMonth.days[modifiedDay.i].time = modifiedDay.time;
-        }
-        updatePTO();
-        nextMonth(false);
+    // Copy payroll
+    if (data.payroll) {
+        Settings.payrollWeek = data.payroll.payrollWeek;
+        Settings.payrollDay = data.payroll.payrollDay;
+        Settings.setPayroll(data.payroll.payroll);
     }
 
-    setMonth(initMonth);
+    // Copy start day
+    if (data.startDay) {
+        Settings.setStartDate(data.startDay.month, data.startDay.day, data.startDay.year);
+    }
+
+    // Set accruals
+    calculateAccruals();
+
+    // Copy months
+    if (data.months) {
+        // Go to first month
+        const initMonth = currentMonth;
+        const monthOffset = (currentMonth.month + currentMonth.year * 12) - (data.months[0].month + data.months[0].year * 12)
+        for (let i = monthOffset; i > 0; --i)
+            lastMonth(false);
+        for (let i = monthOffset; i < 0; ++i)
+            nextMonth(false);
+    
+        // Copy data for each month
+        for (let i = 0; i < data.months.length; ++i) {
+            const monthData = data.months[i];
+            for (let modifiedDay of monthData.modifiedDays) {
+                const day = currentMonth.days[modifiedDay.i];
+                for (let k in modifiedDay.data)
+                    day.data[k] = modifiedDay.data[k];
+            }
+            updatePTO();
+            nextMonth(false);
+        }
+    
+        // Return to initial month
+        setMonth(initMonth);
+    }
+
+}
+
+function clearData(msg) {
+    if (confirm(msg ?? "Are you sure you want to clear saved data?")) {
+        storeItem("pto-calendar-data", null);
+        location.reload();
+    }
 }
 
 function saveChanges() {

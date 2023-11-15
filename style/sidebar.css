@@ -1,0 +1,89 @@
+
+.sidebar {
+    width: 220px;
+    background-color: #ffffff10;
+    border-left: solid 1px var(--c2);
+    backdrop-filter: brightness(1.2) blur(5px);
+}
+
+.sidebar h2 {
+    margin-top: 8px;
+    border-top: solid 1px var(--c2);
+    border-bottom: solid 1px var(--c2);
+    background-color: #ffffff15;
+}
+
+.sidebar .header {
+    margin-top: 0px;
+    border-top: none;
+}
+
+.sidebar .line {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+    margin-left: 6px;
+    margin-right: 2px;
+    font-family: "Trebuchet MS";
+    color: var(--c1);
+}
+
+.sidebar .label {
+    color: var(--c1);
+    min-width: 106px;
+    font-weight: bold;
+}
+
+.sidebar input,
+.sidebar .info,
+.sidebar .button {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 20px;
+    height: 20px; /* 16 */
+    margin-right: 6px;
+    padding: 0px 3px;
+    background: #ffffff15;
+    color: var(--c1);
+    font-size: 14px;
+    font-family: "Trebuchet MS";
+    border: solid 1px var(--c2);
+    border-radius: 2px;
+}
+
+.sidebar .button {
+    flex: 1;
+    display: flex;
+    width: auto;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.sidebar .button:hover {
+    background: #ffffff20;
+}
+
+.sidebar .button:active {
+    background: #ffffff15;
+}
+
+/* .sidebar .info {
+    border: none;
+    height: 20px;
+    font-size: 16px;
+    padding-left: 4px;
+} */
+
+.sidebar .setting-w2 {
+    flex: 0;
+    width: 16px;
+    min-width: auto;
+    margin: 0;
+}
+
+.sidebar .dropbtn {
+    height: 22px;
+    font-size: 14px;
+}

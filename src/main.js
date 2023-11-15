@@ -9,6 +9,7 @@ function initListeners() {
     const subSettingElem = document.getElementById("setting-sub");
     const maxSettingElem = document.getElementById("setting-max");
     const carrySettingElem = document.getElementById("setting-carry");
+    const startPTOElem = document.getElementById("setting-start");
     const startMonthElem = document.getElementById("pto-start-month");
     const startDayElem = document.getElementById("pto-start-day");
     const startYearElem = document.getElementById("pto-start-year");
@@ -32,6 +33,12 @@ function initListeners() {
     });
     carrySettingElem.addEventListener("change", ()=>{
         Settings.setSetting("carry", parseFloat(carrySettingElem.value));
+        Settings.unknownMaxDate();
+        updateAllPTO();
+        saveChanges();
+    });
+    startPTOElem.addEventListener("change", ()=>{
+        Settings.setSetting("start", parseFloat(startPTOElem.value));
         Settings.unknownMaxDate();
         updateAllPTO();
         saveChanges();
@@ -173,6 +180,8 @@ class Month {
 }
 
 class Day {
+    static startingDay = null;
+
     constructor(month, dayOfWeek, dayOfMonth) {
         this.month = month;
         this.dayOfWeek = dayOfWeek;
@@ -206,7 +215,8 @@ class Day {
     }
 
     getLocalTimeOff() {
-        let time = this.data.time;
+        let time = this.isStartingDay() ? Settings.start : 0;
+        time += this.data.time;
         if (this.data.add) time += Settings.getSetting("add");
         if (this.data.sub) time -= Settings.getSetting("sub");
         return time;
@@ -219,6 +229,9 @@ class Day {
     }
 
     isStartingDay() {
+        if (Day.startingDay !== null)
+            return this == Day.startingDay;
+
         // Starting day of accruals
         const startMonth = Settings.startDay.month; // [0]
         const startDay = Settings.startDay.day;     // [1]
@@ -229,7 +242,10 @@ class Day {
             return false;
 
         // Starting day?
-        return (startDay - 1 == this.dayOfMonth);
+        if (startDay - 1 == this.dayOfMonth) {
+            Day.startingDay = this;
+            return true;
+        } else return false;
     }
 }
 

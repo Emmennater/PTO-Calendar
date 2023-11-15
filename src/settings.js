@@ -5,6 +5,7 @@ class Settings {
     static max = 0;
     static carry = 0;
     static round = 1;
+    static start = 0;
     static payroll = "Weekly";
     static payrollWeek = "Saturday";
     static payrollDay = 1;
@@ -15,6 +16,7 @@ class Settings {
         Settings.setSetting("sub", 8);
         Settings.setSetting("max", 120);
         Settings.setSetting("carry", 120);
+        Settings.setSetting("start", 0);
         
         // Current day
         const currentDay = new Date();
@@ -52,6 +54,7 @@ class Settings {
     }
 
     static setStartDate(month, day, year) {
+        Day.startingDay = null;
         Settings.startDay.month = month;
         Settings.startDay.day = day;
         Settings.startDay.year = year;

@@ -151,6 +151,8 @@ function updateAllPTO() {
 }
 
 function calculateAccruals(calcPTO = false) {
+    Day.startingDay = null;
+    
     // Starting day of accruals
     const startMonth = Settings.startDay.month;
     const startYear = Settings.startDay.year;
@@ -192,7 +194,8 @@ function saveData() {
         add: Settings.getSetting("add"),
         sub: Settings.getSetting("sub"),
         max: Settings.getSetting("max"),
-        carry: Settings.getSetting("carry")
+        carry: Settings.getSetting("carry"),
+        start: Settings.getSetting("start")
     };
     const payroll = {
         payroll: Settings.getSetting("payroll"),

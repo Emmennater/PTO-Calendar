@@ -1,13 +1,3 @@
-<style>
-    ln {
-        display: flex;
-    }
-    st {
-        width: 100px;
-        font-weight: bold;
-    }
-</style>
-
 # PTO Calendar
  Second attempt at creating a PTO management system.
 
@@ -18,11 +8,11 @@
 </ul>
 
 <h2>Settings</h2>
-<ln><st>ACCRUE</st>Hours accrued per day</ln>
-<ln><st>TIME OFF</st>Hours deferred per day</ln>
-<ln><st>MAX PTO</st>Maximum number of hours</ln>
-<ln><st>MAX CARRY</st>Maximum number of hours carried over to the next year</ln>
-<ln><st>PAYROLL</st>Scheduling of pay periods</ln>
-<ln><st>ON</st>Day of pay period</ln>
-<ln><st>START DAY</st>Day where payroll begins</ln>
-<ln><st>START PTO</st>Initial number of hours on the starting day</ln>
+<b>ACCRUE</b> - Hours accrued per day.<br>
+<b>TIME OFF</b> - Hours deferred per day.<br>
+<b>MAX PTO</b> - Maximum number of hours.<br>
+<b>MAX CARRY</b> - Maximum number of hours carried over to the next year.<br>
+<b>PAYROLL</b> - Scheduling of pay periods.<br>
+<b>ON</b> - Day of pay period.<br>
+<b>START DAY</b> - Day where payroll begins.<br>
+<b>START PTO</b> - Initial number of hours on the starting day.

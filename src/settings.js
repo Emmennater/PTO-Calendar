@@ -6,7 +6,7 @@ class Settings {
     static carry = 0;
     static round = 1;
     static payroll = "Weekly";
-    static payrollWeek = "Sunday";
+    static payrollWeek = "Saturday";
     static payrollDay = 1;
     static startDay = { month: 0, day: 0, year: 0 };
 

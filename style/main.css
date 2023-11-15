@@ -62,6 +62,7 @@ h1 {
     font-family: arial;
     text-align: center;
     color: var(--c1);
+    /* text-shadow: 0px 4px 6px #0004; */
 }
 
 h2 {

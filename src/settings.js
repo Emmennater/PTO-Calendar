@@ -18,7 +18,7 @@ class Settings {
         
         // Current day
         const currentDay = new Date();
-        Settings.setStartDate(currentDay.getMonth(), currentDay.getDate(), currentDay.getFullYear());
+        Settings.setStartDate(currentDay.getMonth(), 1, currentDay.getFullYear());
     
     }
 

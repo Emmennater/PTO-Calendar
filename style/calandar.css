@@ -62,6 +62,14 @@
     transition: box-shadow 0.1s;
 }
 
+.day.hit-max {
+    background: linear-gradient(
+        to top,
+        rgba(255, 0, 0, 0.308) calc(var(--pto-ratio) * 100%),
+        #ffffff12 calc(var(--pto-ratio) * 100%)
+    );
+}
+
 .day.starting-day {
     box-shadow: inset 0px 0px 20px #88ffb680;
 }

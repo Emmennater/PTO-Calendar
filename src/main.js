@@ -116,13 +116,17 @@ class Month {
         let hitMax = startingPTO >= maxPTO;
         for (const day of this.days) {
             cumulativePTO += day.getLocalTimeOff();
-            day.setTimeOff(cumulativePTO);
-
-            // Max PTO date
-            if (!hitMax && cumulativePTO >= maxPTO) {
-                hitMax = true;
-                Settings.setMaxDate(day);
+            
+            // Max PTO
+            if (cumulativePTO >= maxPTO) {
+                cumulativePTO = maxPTO;
+                if (!hitMax) {
+                    hitMax = true;
+                    Settings.setMaxDate(day);
+                }
             }
+
+            day.setTimeOff(cumulativePTO);
         }
     }
 
@@ -215,8 +219,8 @@ class Day {
     }
 
     getLocalTimeOff() {
-        let time = this.isStartingDay() ? Settings.start : 0;
-        time += this.data.time;
+        if (this.isStartingDay()) return Settings.start;
+        let time = this.data.time;
         if (this.data.add) time += Settings.getSetting("add");
         if (this.data.sub) time -= Settings.getSetting("sub");
         return time;

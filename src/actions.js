@@ -120,6 +120,13 @@ function updateDayElem(i) {
     else
         dayElem.classList.remove("starting-day");
 
+    // Hit max
+    if (timeOffRatio == 1) {
+        dayElem.classList.add("hit-max");
+    } else {
+        dayElem.classList.remove("hit-max");
+    }
+
 }
 
 function updatePTOElems() {

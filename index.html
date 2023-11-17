@@ -7,10 +7,13 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/Emmennater/PTO-Calendar/main/favicon.ico">
+        
+        <!-- Styles -->
         <link rel="stylesheet" href="style/main.css">
         <link rel="stylesheet" href="style/calandar.css">
         <link rel="stylesheet" href="style/sidebar.css">
         <link rel="stylesheet" href="style/dropdown.css">
+        <link rel="stylesheet" href="style/notif.css">
     </head>
     <body>
         
@@ -175,6 +178,20 @@
                         <input id="setting-start">
                     </div>
 
+                    <!-- Save and Load -->
+                    <h2>File</h2>
+
+                    <!-- Save and Load Button -->
+                    <div class="line">
+                        <button class="button" onclick="copySaveData()">Save Data</button>
+                        <button class="button" onclick="loadSaveData()">Load Data</button>
+                    </div>
+
+                    <!-- JSON Data -->
+                    <div class="line">
+                        <input id="json-data">
+                    </div>
+
                     <!-- Reset Button -->
                     <div class="line">
                         <button class="button" onclick="clearData()">Reset</button>
@@ -190,6 +207,9 @@
             </div>
         </main>
 
+        <!-- Helper -->
+        <script src="src/notif.js" defer></script>
+        
         <!-- Source -->
         <script src="src/other.js" defer></script>
         <script src="src/dropdowns.js" defer></script>

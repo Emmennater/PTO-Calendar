@@ -87,3 +87,7 @@
     height: 22px;
     font-size: 14px;
 }
+
+.clipboard-string {
+    display: none;
+}

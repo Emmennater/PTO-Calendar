@@ -307,4 +307,27 @@ function clearData(msg) {
 function saveChanges() {
     const dataString = saveData();
     storeItem("pto-calendar-data", dataString);
+    return dataString;
+}
+
+function copySaveData() {
+    const saveData = saveChanges();
+    copyTextToClipboard(saveData, true);
+    const jsonElem = document.getElementById("json-data");
+    jsonElem.value = saveData;
+}
+
+function pasteSaveData() {
+    const jsonElem = document.getElementById("json-data");
+    pasteTextFromClipboard(jsonElem);
+}
+
+function loadSaveData() {
+    const jsonElem = document.getElementById("json-data");
+    try {
+        loadData(jsonElem.value);
+        Notification.show("Loaded!");
+    } catch (e) {
+        console.error("Error loading data: ", e);
+    }
 }

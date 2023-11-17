@@ -9,6 +9,8 @@ class DropDowns {
             if (e.button !== 0) return;
             DropDowns.hideAllDropDowns();
         });
+
+        DropDowns.initStyles();
     }
 
     static hideAllDropDowns() {
@@ -33,25 +35,40 @@ class DropDowns {
             saveChanges();
         }
     }
-}
 
-function setDaySelectionByPayroll(payroll) {
-    switch (payroll) {
-        case "Weekly": setDaySelectionToWeek(); break;
-        case "Bi-Weekly": setDaySelectionToWeek(); break;
-        case "Bi-Monthly": setDaySelectionToDay(); break;
-        case "Monthly": setDaySelectionToDay(); break;
+    static initStyles() {
+        const payrolls = Array.from(document.getElementById("payroll-options").children);
+        const weeks = Array.from(document.getElementById("week-selection").children);
+        const days = Array.from(document.getElementById("day-selection").children);
+        const children = [...payrolls, ...weeks, ...days];
+        for (const elem of children) {
+            elem.addEventListener('mousemove', (e) => {
+                // const x = e.clientX / elem.offsetWidth;
+                const bounds = elem.getBoundingClientRect();
+                const x = (e.clientX - bounds.x) / bounds.width;
+                elem.style.setProperty('--start', x);
+            });
+        }
     }
 }
 
-function setDaySelectionToWeek() {
+function setDaySelectionByPayroll(payroll, accrue = true) {
+    switch (payroll) {
+        case "Weekly": setDaySelectionToWeek(accrue); break;
+        case "Bi-Weekly": setDaySelectionToWeek(accrue); break;
+        case "Bi-Monthly": setDaySelectionToDay(accrue); break;
+        case "Monthly": setDaySelectionToDay(accrue); break;
+    }
+}
+
+function setDaySelectionToWeek(accrue = true) {
     const weekOpts = document.getElementById("week-selection");
     const dayOpts = document.getElementById("day-selection");
     dayOpts.setAttribute("style", "display: none;");
     weekOpts.setAttribute("style", "display: block;");
 
     // Automatically select last selected week
-    Settings.setPayrollWeek(Settings.payrollWeek, true);
+    Settings.setPayrollWeek(Settings.payrollWeek, accrue);
 }
 
 function setDaySelectionToDay() {

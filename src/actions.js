@@ -62,6 +62,7 @@ function dayClicked(e, day, i) {
     if (dayObject === undefined) return;
     
     if (button == "left") {
+        Settings.setMinPTOWarning(false);
         dayObject.toggleSub();
         updatePTO();
     }
@@ -99,7 +100,8 @@ function updateDayElem(i) {
 
     // Set time off
     dayElem.children[1].innerText = rnd(monthDay.getTimeOff(), Settings.getSetting("round"));
-    let timeOffRatio = monthDay.getTimeOff() / Settings.getSetting("max");
+    const dayTimeOff = monthDay.getTimeOff();
+    let timeOffRatio = dayTimeOff / Settings.getSetting("max");
     timeOffRatio = Math.max(Math.min(timeOffRatio, 1), 0);
     dayElem.setAttribute("style", `--pto-ratio: ${timeOffRatio};`);
 
@@ -121,8 +123,10 @@ function updateDayElem(i) {
         dayElem.classList.remove("starting-day");
 
     // Hit max
-    if (timeOffRatio == 1) {
+    if (dayTimeOff >= Settings.getSetting("max") ||
+        dayTimeOff < Settings.getSetting("min")) {
         dayElem.classList.add("hit-max");
+        dayElem.setAttribute("style", `--pto-ratio: 1;`);
     } else {
         dayElem.classList.remove("hit-max");
     }
@@ -144,6 +148,7 @@ function updatePTO() {
 
 function updateAllPTO() {
     Settings.maxPTO = null;
+    // Settings.setMinPTOWarning(false);
     const initMonth = currentMonth;
     while (true) {
         if (!currentMonth.lastMonth) break;
@@ -201,6 +206,7 @@ function saveData() {
         add: Settings.getSetting("add"),
         sub: Settings.getSetting("sub"),
         max: Settings.getSetting("max"),
+        min: Settings.getSetting("min"),
         carry: Settings.getSetting("carry"),
         start: Settings.getSetting("start")
     };

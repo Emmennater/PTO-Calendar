@@ -88,6 +88,11 @@
     font-size: 14px;
 }
 
-.clipboard-string {
-    display: none;
+.sidebar .warning {
+    flex: 1;
+    color: #fff;
+    background-color: #ff0000;
+    background-clip: padding-box;
+    margin-right: 4px;
+    text-align: center;
 }

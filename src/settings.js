@@ -3,6 +3,7 @@ class Settings {
     static add = 0;
     static sub = 0;
     static max = 0;
+    static min = 0;
     static carry = 0;
     static round = 1;
     static start = 0;
@@ -15,9 +16,11 @@ class Settings {
         Settings.setSetting("add", 4);
         Settings.setSetting("sub", 8);
         Settings.setSetting("max", 120);
+        Settings.setSetting("min", -40);
         Settings.setSetting("carry", 120);
         Settings.setSetting("start", 0);
-        
+        setDaySelectionByPayroll(Settings.payroll, false);
+
         // Current day
         const currentDay = new Date();
         Settings.setStartDate(currentDay.getMonth(), 1, currentDay.getFullYear());
@@ -89,5 +92,11 @@ class Settings {
     static unknownMaxDate() {
         const elem = document.getElementById("max-date");
         elem.innerText = `???`;
+    }
+
+    static setMinPTOWarning(bool) {
+        const warningElem = document.getElementById("min-pto-warning");
+        const display = bool ? "block;" : "none;";
+        warningElem.setAttribute("style", "display:" + display);
     }
 }

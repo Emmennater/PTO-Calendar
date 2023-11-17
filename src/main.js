@@ -8,6 +8,7 @@ function initListeners() {
     const addSettingElem = document.getElementById("setting-add");
     const subSettingElem = document.getElementById("setting-sub");
     const maxSettingElem = document.getElementById("setting-max");
+    const minSettingElem = document.getElementById("setting-min");
     const carrySettingElem = document.getElementById("setting-carry");
     const startPTOElem = document.getElementById("setting-start");
     const startMonthElem = document.getElementById("pto-start-month");
@@ -28,6 +29,11 @@ function initListeners() {
     maxSettingElem.addEventListener("change", ()=>{
         Settings.setSetting("max", parseFloat(maxSettingElem.value));
         Settings.unknownMaxDate();
+        updateAllPTO();
+        saveChanges();
+    });
+    minSettingElem.addEventListener("change", ()=>{
+        Settings.setSetting("min", parseFloat(minSettingElem.value));
         updateAllPTO();
         saveChanges();
     });
@@ -113,6 +119,7 @@ class Month {
 
         let cumulativePTO = startingPTO;
         const maxPTO = Settings.getSetting("max");
+        const minPTO = Settings.getSetting("min");
         let hitMax = startingPTO >= maxPTO;
         for (const day of this.days) {
             cumulativePTO += day.getLocalTimeOff();
@@ -125,6 +132,11 @@ class Month {
                     Settings.setMaxDate(day);
                 }
             }
+
+            // Min PTO
+            // if (cumulativePTO < minPTO) {
+            //     Settings.setMinPTOWarning(true);
+            // }
 
             day.setTimeOff(cumulativePTO);
         }

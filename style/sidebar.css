@@ -96,3 +96,8 @@
     margin-right: 4px;
     text-align: center;
 }
+
+.sidebar input::placeholder {
+    color: white;
+    opacity: 0.3;
+}

@@ -219,11 +219,16 @@ class Day {
         let mode = "none";
         if (this.data.sub) mode = "sub";
         else if (this.data.add) mode = "add";
+        else if (this.data.time < 0) mode = "sub";
         return mode;
     }
 
     setTimeOff(time) {
         this.data.timeOff = time;
+    }
+
+    setTime(time) {
+        this.data.time = time;
     }
 
     toggleSub() {
@@ -234,7 +239,7 @@ class Day {
         if (this.isStartingDay()) return Settings.start;
         let time = this.data.time;
         if (this.data.add) time += Settings.getSetting("add");
-        if (this.data.sub) time -= Settings.getSetting("sub");
+        if (this.data.sub) time -= this.data.subTime || Settings.getSetting("sub");
         return time;
     }
 

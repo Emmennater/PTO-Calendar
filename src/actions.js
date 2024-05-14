@@ -63,8 +63,21 @@ function dayClicked(e, day, i) {
     
     if (button == "left") {
         Settings.setMinPTOWarning(false);
-        dayObject.toggleSub();
+        if (dayObject.data.time) {
+            dayObject.data.time = 0;
+        } else {
+            dayObject.toggleSub();
+        }
         updatePTO();
+    }
+
+    if (button == "right") {
+        let subTime = parseFloat(prompt("Enter time off:"));
+        if (!isNaN(subTime)) {
+            dayObject.data.sub = false;
+            dayObject.setTime(-subTime);
+            updatePTO();
+        }
     }
 
     saveChanges();

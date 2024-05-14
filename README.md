@@ -5,6 +5,7 @@
 <ul>
  <li>Click a day once to take time off.</li>
  <li>Click again to go back.</li>
+ <li>Right Click to specify time off.</li>
 </ul>
 
 <h2>Settings</h2>

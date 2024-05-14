@@ -19,6 +19,6 @@
 <b>START DAY</b> - Day where payroll begins.<br>
 <b>START PTO</b> - Initial number of hours on the starting day.
 
-<h2>Settings</h2>
+<h2>File</h2>
 <b>Save Data</b> - Save the calendar and copy the json data to your clipboard.<br>
 <b>Load Data</b> - Load the json data from the text box below into the calendar.<br>
